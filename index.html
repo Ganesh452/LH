@@ -1,70 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">`		
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lotus Hospital</title>
     <style>
+        :root {
+            --primary-color: #2a3f54;
+            --secondary-color: #4CAF50;
+            --accent-color: #2E8B57;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+            --dark-blue: #1a2a3a;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f8ff;
-            background-image: url('bg-img.jpg');
+            background-image: linear-gradient(rgba(240, 248, 255, 0.9), rgba(240, 248, 255, 0.9)), url('bg-img.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
         }
         
         .logo-heading-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 0;
-    }
-    
-    .round-logo {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 0px solid black;
-        margin-right: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    
-    .hospital-heading h1 {
-        margin: 0;
-        color: white;
-        font-size: 28px;
-    }
-    
-    .hospital-heading p {
-        margin: 5px 0 0;
-        color: #e0e0e0;
-        font-size: 14px;
-    }
-    
-    @media (max-width: 600px) {
-        .logo-heading-container {
-            flex-direction: column;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 0;
+            background: rgba(255,255,255,0.9);
+            box-shadow: var(--shadow);
         }
+        
         .round-logo {
-            margin-right: 0;
-            margin-bottom: 15px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid black;
+            margin-right: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
-    }
+        
+        .round-logo:hover {
+            transform: rotate(10deg);
+        }
+        
+        .hospital-heading h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .hospital-heading p {
+            margin: 5px 0 0;
+            color: #555;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 600px) {
+            .logo-heading-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .round-logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            .hospital-heading h1 {
+                font-size: 24px;
+            }
+        }
 
         header {
-            background-color: rgba(235, 232, 232, 0.829);
+            background-color: rgba(255, 255, 255, 0.95);
             text-align: center;
             padding: 2px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         nav {
-            background-color: blue;
+            background-color: var(--primary-color);
             padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
         }
         
         nav ul {
@@ -77,6 +108,7 @@
         
         nav ul li {
             margin: 0 15px;
+            position: relative;
         }
         
         nav ul li a {
@@ -84,81 +116,106 @@
             text-decoration: none;
             padding: 8px 15px;
             border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: var(--transition);
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
         
         nav ul li a:hover, nav ul li a.active {
-            background-color: rgb(63, 199, 9);
-            cursor:pointer;
+            background-color: var(--secondary-color);
+            cursor: pointer;
+            transform: translateY(-2px);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after, 
+        nav ul li a.active::after {
+            width: 100%;
         }
 
         .menu-toggle {
-    display: none;
-    cursor: pointer;
-    padding: 15px;
-    position: absolute;
-    right: 20px;
-    top: 10px;
-}
+            display: none;
+            cursor: pointer;
+            padding: 15px;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
 
-/* Hamburger icon lines */
-.menu-toggle span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background: white;
-    margin: 5px 0;
-    transition: all 0.3s ease;
-}
+        /* Hamburger icon lines */
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: black;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
 
-/* Mobile styles (under 768px) */
-@media (max-width: 768px) {
-    /* Show hamburger */
-    .menu-toggle {
-        display: block;
-    }
-    
-    /* Hide the menu by default */
-    #nav-list {
-        display: none;
-        width: 100%;
-        background: blue; /* Match your nav color */
-        position: absolute;
-        top: 60px; /* Adjust based on header height */
-        left: 0;
-        padding: 0;
-        z-index: 1000;
-    }
-    
-    /* Show menu when active (clicked) */
-    #nav-list.active {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    /* Style menu items */
-    #nav-list li {
-        margin: 0;
-        width: 100%;
-        text-align: center;
-    }
-    
-    #nav-list li a {
-        display: block;
-        padding: 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-}
+        /* Mobile styles (under 768px) */
+        @media (max-width: 768px) {
+            /* Show hamburger */
+            .menu-toggle {
+                display: block;
+            }
+            
+            /* Hide the menu by default */
+            #nav-list {
+                display: none;
+                width: 100%;
+                background: var(--primary-color);
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 0;
+                z-index: 1000;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
+            
+            /* Show menu when active (clicked) */
+            #nav-list.active {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            /* Style menu items */
+            #nav-list li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            #nav-list li a {
+                display: block;
+                padding: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            nav ul li a:hover, nav ul li a.active {
+                transform: none;
+            }
+        }
         
         .container {
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
         
         .section {
             display: none;
             animation: fadeIn 0.5s;
+            padding: 30px 0;
         }
         
         .section.active {
@@ -168,10 +225,17 @@
         .doctor-card {
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             padding: 20px;
             margin-bottom: 20px;
             display: flex;
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         
         .doctor-img {
@@ -180,178 +244,189 @@
             border-radius: 50%;
             object-fit: cover;
             margin-right: 20px;
+            border: 3px solid var(--secondary-color);
+            box-shadow: var(--shadow);
         }
         
         .doctor-info h2 {
-            color: #2E8B57;
+            color: var(--accent-color);
             margin-top: 0;
+            font-size: 1.5rem;
         }
         
         .specialty {
             font-weight: bold;
-            color: #555;
+            color: var(--primary-color);
+            font-size: 1.1rem;
         }
         
         .availability {
-            color: #4CAF50;
+            color: var(--secondary-color);
             font-weight: bold;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
         }
         
         footer {
-        background-color: #2a3f54;
-        color: #ffffff;
-        padding: 40px 0 20px;
-        font-family: 'Arial', sans-serif;
-    }
-    
-    .footer-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 30px;
-        padding: 0 20px;
-    }
-    
-    .footer-section h3 {
-        color: #4CAF50;
-        margin-bottom: 20px;
-        font-size: 18px;
-        position: relative;
-        padding-bottom: 10px;
-    }
-    
-    .footer-section h3::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 50px;
-        height: 2px;
-        background: #4CAF50;
-    }
-    
-    .footer-section ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .footer-section ul li {
-        margin-bottom: 10px;
-    }
-    
-    .footer-section ul li a {
-        color: #dddddd;
-        text-decoration: none;
-        transition: color 0.3s;
-    }
-    
-    .footer-section ul li a:hover {
-        color: #4CAF50;
-    }
-    
-    .contact-info li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-    
-    .contact-info i {
-        margin-right: 10px;
-        color: #4CAF50;
-        width: 20px;
-        text-align: center;
-    }
-    
-    .newsletter-form {
-        display: flex;
-        margin-top: 15px;
-    }
-    
-    .newsletter-form input {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        border-radius: 4px 0 0 4px;
-    }
-    
-    .newsletter-form button {
-        background: #4CAF50;
-        color: white;
-        border: none;
-        padding: 0 15px;
-        border-radius: 0 4px 4px 0;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-    
-    .newsletter-form button:hover {
-        background: #3e8e41;
-    }
-    
-    .social-media {
-        margin-top: 8rem;
-        display: flex;
-        gap: 15px;
-    }
-    
-    .social-media a {
-        color: white;
-        background: #3a4e65;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s;
-    }
-    
-    .social-media a:hover {
-        background: #4CAF50;
-        transform: translateY(-3px);
-    }
-    
-    .footer-bottom {
-        text-align: center;
-        padding-top: 30px;
-        margin-top: 30px;
-        border-top: 1px solid #3a4e65;
-        font-size: 14px;
-    }
-    
-    .footer-bottom p {
-        margin: 5px 0;
-        color: #aaaaaa;
-    }
-    
-    @media (max-width: 768px) {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 40px 0 20px;
+            font-family: 'Arial', sans-serif;
+        }
+        
         .footer-container {
-            grid-template-columns: 1fr 1fr;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #dddddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+            width: 20px;
+            text-align: center;
         }
         
         .newsletter-form {
-            flex-direction: column;
+            display: flex;
+            margin-top: 15px;
         }
         
-        .newsletter-form input,
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
         .newsletter-form button {
-            width: 100%;
-            border-radius: 4px;
-            margin-bottom: 5px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: var(--transition);
         }
-    }
-    
-    @media (max-width: 480px) {
-        .footer-container {
-            grid-template-columns: 1fr;
+        
+        .newsletter-form button:hover {
+            background: var(--accent-color);
         }
-    }
+        
+        .social-media {
+            margin-top: 2rem;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-media a {
+            color: white;
+            background: #3a4e65;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .social-media a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #3a4e65;
+            font-size: 14px;
+        }
+        
+        .footer-bottom p {
+            margin: 5px 0;
+            color: #aaaaaa;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 5px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
         
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Home section styles */
@@ -360,27 +435,238 @@
             padding: 30px;
         }
         
-        /* About section styles */
-        #about {
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        #home h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
         
-        /* Services section styles */
-        #services ul {
+        #home p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        #home img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            margin: 20px auto;
+            box-shadow: var(--shadow);
+            border: 3px solid white;
+        }
+        
+        .emergency-btn {
+            padding: 12px 25px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .emergency-btn:hover {
+            background: green;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* About section styles */
+        #about {
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        #about h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        #about h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        #about h3 {
+            color: var(--accent-color);
+            margin-top: 30px;
+			margin-bottom:0px;
+            font-size: 1.5rem;
+        }
+        
+        #about ul {
             columns: 2;
             list-style-type: none;
             padding: 0;
         }
         
-        #services li {
-            background: white;
+        #about li {
+            background: rgba(76, 175, 80, 0.1);
             margin-bottom: 10px;
-            padding: 10px;
+            padding: 12px 15px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        #about li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 10px;
+            font-weight: bold;
+        }
+        
+        /* Services section styles */
+        #services {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        #services h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        #services h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        #services ul {
+            columns: 2;
+            list-style-type: none;
+            padding: 0;
+            gap: 20px;
+        }
+        
+        #services li {
+            background: rgba(42, 63, 84, 0.05);
+            margin-bottom: 15px;
+            padding: 15px;
             border-radius: 4px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            break-inside: avoid;
+            transition: var(--transition);
+        }
+        
+        #services li:hover {
+            background: rgba(76, 175, 80, 0.1);
+            transform: translateX(5px);
+        }
+        
+        #services li strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        /* Contact section styles */
+        #contact {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        #contact h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        #contact h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info-box {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        .contact-info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .contact-info-box h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-info-box h3 i {
+            color: var(--secondary-color);
+        }
+        
+        #contact_info {
+            margin-top: 15px;
+            line-height: 1.8;
+        }
+
+        .submit-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
         }
         
         @media (max-width: 768px) {
@@ -407,32 +693,68 @@
             #services ul {
                 columns: 1;
             }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            #about ul {
+                columns: 1;
+            }
         }
 
-        #contact_info{
-            margin-top:0px;
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 999;
         }
-
-        #contact-head{
-            margin-bottom: 2px;
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
         }
     </style>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome
-	/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="logo-heading-container">
         <!-- Round Logo - replace src with your actual logo -->
-        <img src="LH-logo.jpg" alt="____Lotus Hospital Logo" class="round-logo">
+        <img src="LH-logo.jpg" alt="Lotus Hospital Logo" class="round-logo">
         <div class="hospital-heading">
-        <u style="color:blue;"><h1 style="font-size:3.5rem;color:blue;font-weight:bold;font-family: 'Times New Roman', Times, serif;">Lotus Hospital</h1></u>
-        <p style="font-size:1.6rem;font-style:calibri;color:black;margin-top:8px;"><b>Trauma & Critical Care</b></p>
+        <u style="color:blue;"><h1 style="font-size:3.5rem;color:blue;font-weight:bold;font-family: 'Times New Roman', Times, serif;margin-bottom:0px;">Lotus Hospital</h1></u>
+        <p style="font-size:1.6rem;font-style:calibri;color:black;margin-top:0px;"><b>Trauma & Critical Care</b></p>
         </div>
     </header>
     
     <nav>
-        <ul>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="nav-list">
             <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
             <li><a href="#" class="nav-link" data-section="about">About Us</a></li>
             <li><a href="#" class="nav-link" data-section="doctors">Our Doctors</a></li>
@@ -445,25 +767,27 @@
         <!-- Home Section -->
         <section id="home" class="section active">
             <h2>Welcome to Lotus Hospital</h2>
-            <p>Your trusted healthcare provider with world-class facilities and expert medical professionals.</p>
-            <img src="Hospital-photo.jpg" alt="Hospital Photo" style="width:100%; max-width:200px; border-radius:8px; margin-top:2px;">
+            <p>Your trusted healthcare provider with world-class facilities and expert medical professionals dedicated to your health and well-being.</p>
+            <img src="Hospital-photo.jpg" alt="Hospital Photo">
             <div style="margin-top:30px;">
-                <button style="padding:10px 20px; background:#4CAF50; color:white; border:none; border-radius:4px;">Emergency Contacts: 8792860840, 9448494707</button>
+                <button class="emergency-btn">Emergency Contacts: 8792860840, 9448494707</button>
             </div>
         </section>
         
         <!-- About Section -->
         <section id="about" class="section">
-            <h2 style="margin-bottom:2px;">About Lotus Hospital</h2>
-            <p style="margin-top:0px;margin-bottom:2px;">-----</p>
-            <p style="margin-top: 0px;margin-bottom: 3rem;">Our mission is to deliver compassionate, high-quality care using the latest medical technologies and treatments.</p>
-            <h3 style="margin-bottom:2px;">Our Facilities</h3>
-            <ul style="margin-top:0px;">
-                <li>--</li>
-                <li>24*7 Emergency Care, ICU</li>
-                <li>Advanced diagnostic center</li>
-                <li>Specialized ICUs</li>
-                <li>Modern Operation Theatre</li>
+            <h2>About Lotus Hospital</h2>
+            <p style="margin-bottom: 3rem;">Our mission is to deliver compassionate, high-quality care using the latest medical technologies and treatments. We are committed to providing exceptional healthcare services to our community with a patient-centered approach.</p>
+            <h3>Our Facilities</h3>
+            <ul>
+                <li>State-of-the-art 24/7 Emergency Care & ICU</li>
+                <li>Advanced diagnostic center with cutting-edge technology</li>
+                <li>Specialized ICUs for different medical needs</li>
+                <li>Modern Operation Theatre with advanced equipment</li>
+                <li>Comfortable patient rooms with modern amenities</li>
+                <li>Pharmacy with 24/7 availability</li>
+                <li>Rehabilitation center with physiotherapy</li>
+                <li>Advanced laboratory services</li>
             </ul>
         </section>
         
@@ -473,18 +797,18 @@
             <div class="doctor-card">
                 <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
                 <div class="doctor-info">
-                    <h2>Dr.Anil B. Patil.</h2>
+                    <h2>Dr. Anil B. Patil</h2>
                     <p class="specialty">Orthopedic Surgeon</p>
                     <p>MS Orthopedics</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
+                    <p>20 years experience</p>
+                    <p class="availability">Available: Mon-Sat, 9AM-5PM</p>
                 </div>
             </div>
 
             <div class="doctor-card">
                 <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
                 <div class="doctor-info">
-                    <h2>Dr.Amar B. Patil.</h2>
+                    <h2>Dr. Amar B. Patil</h2>
                     <p class="specialty">Family Doctor</p>
                     <p>MD</p>
                     <p>15 years experience</p>
@@ -495,66 +819,44 @@
             <div class="doctor-card">
                 <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
                 <div class="doctor-info">
-                    <h2>Dr.Prashant Katakol.</h2>
+                    <h2>Dr. Prashant Katakol</h2>
                     <p class="specialty">Neurologist</p>
                     <p>MD, DM Neurology</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
+                    <p>12 years experience</p>
+                    <p class="availability">Available: Tue, Thu, Sat 10AM-4PM</p>
                 </div>
             </div>
             
             <div class="doctor-card">
                 <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
                 <div class="doctor-info">
-                    <h2>Dr.Anil B. Patil.</h2>
-                    <p class="specialty">Orthopedic Surgeon</p>
-                    <p>MS Orthopedics</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
+                    <h2>Dr. Sunita Sharma</h2>
+                    <p class="specialty">Pediatrician</p>
+                    <p>MD Pediatrics</p>
+                    <p>18 years experience</p>
+                    <p class="availability">Available: Mon-Fri, 9AM-3PM</p>
                 </div>
             </div>
 
             <div class="doctor-card">
                 <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
                 <div class="doctor-info">
-                    <h2>Dr.Anil B. Patil.</h2>
-                    <p class="specialty">Orthopedic Surgeon</p>
-                    <p>MS Orthopedics</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
+                    <h2>Dr. Rajesh Kumar</h2>
+                    <p class="specialty">Cardiologist</p>
+                    <p>DM Cardiology</p>
+                    <p>14 years experience</p>
+                    <p class="availability">Available: Mon, Wed, Fri 11AM-6PM</p>
                 </div>
             </div>
 
             <div class="doctor-card">
                 <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
                 <div class="doctor-info">
-                    <h2>Dr.Anil B. Patil.</h2>
-                    <p class="specialty">Orthopedic Surgeon</p>
-                    <p>MS Orthopedics</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
-                </div>
-            </div>
-
-            <div class="doctor-card">
-                <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
-                <div class="doctor-info">
-                    <h2>Dr.Anil B. Patil.</h2>
-                    <p class="specialty">Orthopedic Surgeon</p>
-                    <p>MS Orthopedics</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
-                </div>
-            </div>
-
-            <div class="doctor-card">
-                <img src="https://via.placeholder.com/150" alt="Doctor" class="doctor-img">
-                <div class="doctor-info">
-                    <h2>Dr.Anil B. Patil.</h2>
-                    <p class="specialty">Orthopedic Surgeon</p>
-                    <p>MS Orthopedics</p>
-                    <p>_ years experience</p>
-                    <p class="availability">Available: __</p>
+                    <h2>Dr. Priya Nair</h2>
+                    <p class="specialty">Gynecologist</p>
+                    <p>MS Obstetrics & Gynecology</p>
+                    <p>16 years experience</p>
+                    <p class="availability">Available: Mon-Sat, 10AM-5PM</p>
                 </div>
             </div>
         </section>
@@ -563,73 +865,116 @@
         <section id="services" class="section">
             <h2>Our Services</h2>
             <ul>
-                 <li><strong>Physiotherapy:</strong> Rehabilitation, Pain management</li>
-                <li><strong>Neurology:</strong> Stroke care, Epilepsy treatment, Brain surgery</li>
-                <li><strong>Orthopedics:</strong> Joint replacement, Sports medicine, Fracture care</li>
-                <li><strong>Pediatrics:</strong> Child healthcare, Vaccinations, Growth monitoring</li>
-                <li><strong>Emergency:</strong> 24/7 trauma care, Ambulance services</li>
-                <li><strong>Diagnostics:</strong> MRI, CT Scan, X-Ray, Lab tests</li>
-                <li><strong>Maternity:</strong> Prenatal care, Delivery, Postnatal care</li>
-                <li><Strong>Dental</Strong></li>
-                <li><strong>Endoscopy & Colonology</strong></li>
-                <li><strong>Urology</strong></li>
-                <li><strong>General & Laproscopic Surgery</strong></li>
-                <li><strong>ECG, X-Ray</strong></li>
-                <li><strong>Head & Neck Cancer Surgery</strong></li>
-                <li><strong>ENT & Chest Medicine</strong></li>
+                <li><strong>Physiotherapy:</strong> Rehabilitation programs, Pain management, Sports injury recovery, Post-surgical therapy</li>
+                <li><strong>Neurology:</strong> Stroke care, Epilepsy treatment, Brain surgery, Neurological rehabilitation</li>
+                <li><strong>Orthopedics:</strong> Joint replacement, Sports medicine, Fracture care, Arthroscopic surgery</li>
+                <li><strong>Pediatrics:</strong> Child healthcare, Vaccinations, Growth monitoring, Neonatal care</li>
+                <li><strong>Emergency:</strong> 24/7 trauma care, Ambulance services, Critical care, Emergency surgery</li>
+                <li><strong>Diagnostics:</strong> MRI, CT Scan, X-Ray, Lab tests, Ultrasound, ECG</li>
+                <li><strong>Maternity:</strong> Prenatal care, Delivery services, Postnatal care, High-risk pregnancy management</li>
+                <li><strong>Dental:</strong> General dentistry, Cosmetic dentistry, Orthodontics, Oral surgery</li>
+                <li><strong>Endoscopy & Colonoscopy:</strong> Diagnostic procedures, Therapeutic interventions, Screening tests</li>
+                <li><strong>Urology:</strong> Kidney stone treatment, Prostate care, Urological surgeries, Men's health</li>
+                <li><strong>General & Laparoscopic Surgery:</strong> Minimally invasive procedures, Gallbladder surgery, Hernia repair, Appendectomy</li>
+                <li><strong>Cardiology:</strong> Heart disease management, Angioplasty, ECG, Stress tests, Echocardiography</li>
+                <li><strong>Head & Neck Cancer Surgery:</strong> Tumor removal, Reconstructive surgery, Cancer treatment</li>
+                <li><strong>ENT & Chest Medicine:</strong> Ear, nose and throat care, Pulmonary medicine, Allergy treatment</li>
             </ul>
         </section>
         
         <!-- Contact Section -->
         <section id="contact" class="section">
             <h2>Contact Us</h2>
-            <div style="display:flex; gap:20px; margin-bottom:20px;">
-                <div style="flex:1; background:white; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
-                    <h3 id="contact-head">Visit Us:</h3>
-                    <p id="contact_info">Laxmi Avenue, Near Vaccine Depot.,Mandoli Road<br>Tilakwadi, Belagavi-590006.</p>
-                    
-                    <h3 id="contact-head">Call Us:</h3>
+            <div class="contact-container">
+                <div class="contact-info-box">
+                    <h3><i class="fas fa-map-marker-alt"></i>Visit Us:</h3>
+                    <p id="contact_info">Laxmi Avenue, Near Vaccine Depot., Mandoli Road<br>Tilakwadi, Belagavi-590006.</p>
+                </div>
+                
+                <div class="contact-info-box">
+                    <h3><i class="fas fa-phone"></i>Call Us:</h3>
                     <p id="contact_info"><b>Landline:</b> 0831-2421250<br>
                     <b>Phone:</b> 8792860840, 9448494707</p>
-                    
-                    <h3 id="contact-head">Email Us:</h3>
+                </div>
+                
+                <div class="contact-info-box">
+                    <h3><i class="fas fa-envelope"></i>Email Us:</h3>
                     <p id="contact_info">lotushospitalbgm@gmail.com</p>
                 </div>
+            </div>
         </section>
     </div>
     
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
     
-<footer>
-    <div class="footer-container">        
-        <div class="footer-section">
-            <h3>Contact Information</h3>
-            <ul class="contact-info">
-                <li><i class="fas fa-map-marker-alt"></i>Laxmi Avenue, Near Vaccine Depot.,Mandoli Road<br>Tilakwadi, Belagavi-590006.</li>
-                <li><i class="fas fa-phone"></i>Phone: 8792860840, 9448494707</li>
-                <li><i class="fas fa-ambulance"></i>Landline:0831-2421250</li>
-                <li><i class="fas fa-envelope"></i>lotushospitalbgm@gmail.com</li>
-                <li><i class="fas fa-clock"></i> Open 24/7</li>
-            </ul>
-        </div>
-        
-        <div class="footer-section">
-            <div class="social-media">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+    <footer>
+        <div class="footer-container">        
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" data-section="home">Home</a></li>
+                    <li><a href="#" data-section="about">About Us</a></li>
+                    <li><a href="#" data-section="doctors">Our Doctors</a></li>
+                    <li><a href="#" data-section="services">Services</a></li>
+                    <li><a href="#" data-section="contact">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#">Emergency Care</a></li>
+                    <li><a href="#">Diagnostics</a></li>
+                    <li><a href="#">Surgery</a></li>
+                    <li><a href="#">Maternity Care</a></li>
+                    <li><a href="#">Physiotherapy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i>Laxmi Avenue, Near Vaccine Depot.,Mandoli Road<br>Tilakwadi, Belagavi-590006.</li>
+                    <li><i class="fas fa-phone"></i>Phone: 8792860840, 9448494707</li>
+                    <li><i class="fas fa-ambulance"></i>Landline:0831-2421250</li>
+                    <li><i class="fas fa-envelope"></i>lotushospitalbgm@gmail.com</li>
+                    <li><i class="fas fa-clock"></i> Open 24/7</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates and health tips.</p>
+                <div class="social-media">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <h3 style="margin-top: 30px;">Newsletter</h3>
+                <p>Subscribe to our newsletter for health tips and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
             </div>
         </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <p>&copy; 2023 Lotus Hospital. All Rights Reserved.</p>
-        <p>Accredited by the National Healthcare Organization</p>
-    </div>
-</footer>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 Lotus Hospital. All Rights Reserved.</p>
+            <p>Accredited by the National Healthcare Organization</p>
+        </div>
+    </footer>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get all navigation links
             const navLinks = document.querySelectorAll('.nav-link');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navList = document.getElementById('nav-list');
+            const backToTop = document.querySelector('.back-to-top');
             
             // Add click event to each navigation link
             navLinks.forEach(link => {
@@ -648,8 +993,49 @@
                     // Show corresponding section
                     const sectionId = this.getAttribute('data-section');
                     document.getElementById(sectionId).classList.add('active');
+                    
+                    // Close mobile menu if open
+                    navList.classList.remove('active');
+                    
+                    // Scroll to top of section
+                    window.scrollTo({
+                        top: document.getElementById(sectionId).offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 });
             });
+            
+            // Menu toggle for mobile
+            menuToggle.addEventListener('click', function() {
+                navList.classList.toggle('active');
+            });
+            
+            // Back to top button
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('active');
+                } else {
+                    backToTop.classList.remove('active');
+                }
+            });
+            
+            backToTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your message. We will get back to you soon!');
+                    this.reset();
+                });
+            }
         });
     </script>
 </body>
